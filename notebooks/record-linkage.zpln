@@ -1,0 +1,860 @@
+﻿{
+ "paragraphs": [
+  {
+   "text": "%sh\n# wget https://bit.ly/1Aoywaq -O $(pwd)/donations.zip\n# unzip donations.zip -d donations\n# cd donations/ && unzip 'block_*.zip'\n# rm -r ./donations/block_*.zip\n# cd ./donations/ && ls -l",
+   "user": "anonymous",
+   "dateUpdated": "2020-12-26T15:42:22+0000",
+   "config": {
+    "tableHide": false,
+    "editorSetting": {
+     "language": "scala",
+     "editOnDblClick": false,
+     "completionKey": "TAB",
+     "completionSupport": true
+    },
+    "colWidth": 12.0,
+    "editorMode": "ace/mode/scala",
+    "fontSize": 9.0,
+    "editorHide": false,
+    "results": {},
+    "enabled": true
+   },
+   "settings": {
+    "params": {
+     "bdtMeta": {
+      "inlay": {
+       "state": {}
+      }
+     }
+    },
+    "forms": {}
+   },
+   "results": {
+    "code": "SUCCESS",
+    "msg": []
+   },
+   "apps": [],
+   "runtimeInfos": {},
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1608997342453_1568215825",
+   "id": "paragraph_1608997342453_1568215825",
+   "dateCreated": "2020-12-26T15:42:22+0000",
+   "dateStarted": "2020-12-26T15:42:22+0000",
+   "dateFinished": "2020-12-26T15:42:23+0000",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark.conf\nspark.submit.deployMode cluster\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-12-26T16:04:23+0000",
+   "config": {},
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "results": {
+    "code": "SUCCESS",
+    "msg": []
+   },
+   "apps": [],
+   "runtimeInfos": {},
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1608998663408_1698164753",
+   "id": "paragraph_1608998663408_1698164753",
+   "dateCreated": "2020-12-26T16:04:23+0000",
+   "dateStarted": "2020-12-26T16:04:23+0000",
+   "dateFinished": "2020-12-26T16:04:23+0000",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\nval PATH = \"hdfs://namenode:9000/data/record_linkage/\"\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-12-26T16:05:38+0000",
+   "config": {
+    "editorSetting": {
+     "language": "scala",
+     "editOnDblClick": false,
+     "completionKey": "TAB",
+     "completionSupport": true
+    },
+    "colWidth": 12.0,
+    "editorMode": "ace/mode/scala",
+    "fontSize": 9.0,
+    "results": {},
+    "enabled": true
+   },
+   "settings": {
+    "params": {
+     "bdtMeta": {
+      "inlay": {
+       "state": {}
+      }
+     }
+    },
+    "forms": {}
+   },
+   "results": {
+    "code": "SUCCESS",
+    "msg": [
+     {
+      "type": "TEXT",
+      "data": "\u001b[1m\u001b[34mPATH\u001b[0m: \u001b[1m\u001b[32mString\u001b[0m = hdfs://namenode:9000/data/record_linkage/\n"
+     }
+    ]
+   },
+   "apps": [],
+   "runtimeInfos": {},
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1608998738534_1080030681",
+   "id": "paragraph_1608998738534_1080030681",
+   "dateCreated": "2020-12-26T16:05:38+0000",
+   "dateStarted": "2020-12-26T16:05:38+0000",
+   "dateFinished": "2020-12-26T16:05:38+0000",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\nval rawBlocks = sc.textFile(PATH)\nval head = rawBlocks.take(10)\nhead.length\n\ndef isHeader(line: String): Boolean = line.contains(\"id_1\")\n\nhead.filterNot(isHeader).foreach(println)\nhead.filterNot(isHeader).length",
+   "user": "anonymous",
+   "dateUpdated": "2020-12-26T16:05:40+0000",
+   "config": {},
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "results": {
+    "code": "SUCCESS",
+    "msg": [
+     {
+      "type": "TEXT",
+      "data": "37291,53113,0.833333333333333,?,1,?,1,1,1,1,0,TRUE\n39086,47614,1,?,1,?,1,1,1,1,1,TRUE\n70031,70237,1,?,1,?,1,1,1,1,1,TRUE\n84795,97439,1,?,1,?,1,1,1,1,1,TRUE\n36950,42116,1,?,1,1,1,1,1,1,1,TRUE\n42413,48491,1,?,1,?,1,1,1,1,1,TRUE\n25965,64753,1,?,1,?,1,1,1,1,1,TRUE\n49451,90407,1,?,1,?,1,1,1,1,0,TRUE\n39932,40902,1,?,1,?,1,1,1,1,1,TRUE\n\u001b[1m\u001b[34mrawBlocks\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.rdd.RDD[String]\u001b[0m = hdfs://namenode:9000/data/record_linkage/ MapPartitionsRDD[3] at textFile at <console>:31\n\u001b[1m\u001b[34mhead\u001b[0m: \u001b[1m\u001b[32mArray[String]\u001b[0m = Array(\"id_1\",\"id_2\",\"cmp_fname_c1\",\"cmp_fname_c2\",\"cmp_lname_c1\",\"cmp_lname_c2\",\"cmp_sex\",\"cmp_bd\",\"cmp_bm\",\"cmp_by\",\"cmp_plz\",\"is_match\", 37291,53113,0.833333333333333,?,1,?,1,1,1,1,0,TRUE, 39086,47614,1,?,1,?,1,1,1,1,1,TRUE, 70031,70237,1,?,1,?,1,1,1,1,1,TRUE, 84795,97439,1,?,1,?,1,1,1,1,1,TRUE, 36950,42116,1,?,1,1,1,1,1,1,1,TRUE, 42413,48491,1,?,1,?,1,1,1,1,1,TRUE, 25965,64753,1,?,1,?,1,1,1,1,1,TRUE, 49451,90407,1,?,1,?,1,1,1,1,0,TRUE, 39932,40902,1,?,1,?,1,1,1,1,1,TRUE)\n\u001b[1m\u001b[34misHeader\u001b[0m: \u001b[1m\u001b[32m(line: String)Boolean\u001b[0m\n\u001b[1m\u001b[34mres2\u001b[0m: \u001b[1m\u001b[32mInt\u001b[0m = 9\n"
+     }
+    ]
+   },
+   "apps": [],
+   "runtimeInfos": {
+    "jobUrl": {
+     "propertyName": "jobUrl",
+     "label": "SPARK JOB",
+     "tooltip": "View in Spark web UI",
+     "group": "spark",
+     "values": [
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=1"
+      }
+     ],
+     "interpreterSettingId": "spark"
+    }
+   },
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1608998740389_1262528457",
+   "id": "paragraph_1608998740389_1262528457",
+   "dateCreated": "2020-12-26T16:05:40+0000",
+   "dateStarted": "2020-12-26T16:05:40+0000",
+   "dateFinished": "2020-12-26T16:05:42+0000",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\nvar all = spark.read\n        .option(\"header\", value = true)\n        .option(\"nullValue\", \"?\")\n        .option(\"inferSchema\", value = true)\n        .csv(PATH + \"block_1.csv\")\n\nfor (i <- 2 to 10) {\n    val part = spark.read\n            .option(\"header\", value = true)\n            .option(\"nullValue\", \"?\")\n            .option(\"inferSchema\", value = true)\n            .csv(PATH + s\"block_$i.csv\")\n\n    all = all.union(part)\n}\n\nval parsed = all",
+   "user": "anonymous",
+   "dateUpdated": "2020-12-26T16:05:51+0000",
+   "config": {
+    "editorHide": false
+   },
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "results": {
+    "code": "SUCCESS",
+    "msg": [
+     {
+      "type": "TEXT",
+      "data": "\u001b[1m\u001b[34mall\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [id_1: int, id_2: int ... 10 more fields]\n\u001b[1m\u001b[34mparsed\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [id_1: int, id_2: int ... 10 more fields]\n"
+     }
+    ]
+   },
+   "apps": [],
+   "runtimeInfos": {
+    "jobUrl": {
+     "propertyName": "jobUrl",
+     "label": "SPARK JOB",
+     "tooltip": "View in Spark web UI",
+     "group": "spark",
+     "values": [
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=2"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=3"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=4"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=5"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=6"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=7"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=8"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=9"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=10"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=11"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=12"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=13"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=14"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=15"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=16"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=17"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=18"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=19"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=20"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=21"
+      }
+     ],
+     "interpreterSettingId": "spark"
+    }
+   },
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1608998751340_207618161",
+   "id": "paragraph_1608998751340_207618161",
+   "dateCreated": "2020-12-26T16:05:51+0000",
+   "dateStarted": "2020-12-26T16:05:51+0000",
+   "dateFinished": "2020-12-26T16:06:15+0000",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\nparsed.printSchema()\n\nparsed.show(10)\n\nparsed.count()\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-12-26T16:07:00+0000",
+   "config": {
+    "results": [
+     {}
+    ]
+   },
+   "settings": {
+    "params": {
+     "bdtMeta": {
+      "inlay": {
+       "state": {
+        "currentPage": "Table",
+        "chart": {
+         "series": [
+          {
+           "type": "Line",
+           "x": {
+            "column": "cmp_fname_c1",
+            "index": 2.0
+           },
+           "y": {
+            "column": "id_1",
+            "index": 0.0
+           }
+          }
+         ]
+        }
+       }
+      }
+     }
+    },
+    "forms": {}
+   },
+   "results": {
+    "code": "SUCCESS",
+    "msg": [
+     {
+      "type": "TEXT",
+      "data": "root\n |-- id_1: integer (nullable = true)\n |-- id_2: integer (nullable = true)\n |-- cmp_fname_c1: double (nullable = true)\n |-- cmp_fname_c2: double (nullable = true)\n |-- cmp_lname_c1: double (nullable = true)\n |-- cmp_lname_c2: double (nullable = true)\n |-- cmp_sex: integer (nullable = true)\n |-- cmp_bd: integer (nullable = true)\n |-- cmp_bm: integer (nullable = true)\n |-- cmp_by: integer (nullable = true)\n |-- cmp_plz: integer (nullable = true)\n |-- is_match: boolean (nullable = true)\n\n+-----+-----+-----------------+------------+------------+------------+-------+------+------+------+-------+--------+\n| id_1| id_2|     cmp_fname_c1|cmp_fname_c2|cmp_lname_c1|cmp_lname_c2|cmp_sex|cmp_bd|cmp_bm|cmp_by|cmp_plz|is_match|\n+-----+-----+-----------------+------------+------------+------------+-------+------+------+------+-------+--------+\n|37291|53113|0.833333333333333|        null|         1.0|        null|      1|     1|     1|     1|      0|    true|\n|39086|47614|              1.0|        null|         1.0|        null|      1|     1|     1|     1|      1|    true|\n|70031|70237|              1.0|        null|         1.0|        null|      1|     1|     1|     1|      1|    true|\n|84795|97439|              1.0|        null|         1.0|        null|      1|     1|     1|     1|      1|    true|\n|36950|42116|              1.0|        null|         1.0|         1.0|      1|     1|     1|     1|      1|    true|\n|42413|48491|              1.0|        null|         1.0|        null|      1|     1|     1|     1|      1|    true|\n|25965|64753|              1.0|        null|         1.0|        null|      1|     1|     1|     1|      1|    true|\n|49451|90407|              1.0|        null|         1.0|        null|      1|     1|     1|     1|      0|    true|\n|39932|40902|              1.0|        null|         1.0|        null|      1|     1|     1|     1|      1|    true|\n|46626|47940|              1.0|        null|         1.0|        null|      1|     1|     1|     1|      1|    true|\n+-----+-----+-----------------+------------+------------+------------+-------+------+------+------+-------+--------+\nonly showing top 10 rows\n\n\u001b[1m\u001b[34mres3\u001b[0m: \u001b[1m\u001b[32mLong\u001b[0m = 5749132\n"
+     }
+    ]
+   },
+   "apps": [],
+   "runtimeInfos": {
+    "jobUrl": {
+     "propertyName": "jobUrl",
+     "label": "SPARK JOB",
+     "tooltip": "View in Spark web UI",
+     "group": "spark",
+     "values": [
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=22"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=23"
+      }
+     ],
+     "interpreterSettingId": "spark"
+    }
+   },
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1608998820221_1231503703",
+   "id": "paragraph_1608998820221_1231503703",
+   "dateCreated": "2020-12-26T16:07:00+0000",
+   "dateStarted": "2020-12-26T16:07:00+0000",
+   "dateFinished": "2020-12-26T16:07:08+0000",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\nparsed.groupBy(\"is_match\")\n        .count()\n        .orderBy($\"count\".desc)\n        .show()\n\nparsed.agg(avg($\"cmp_sex\"), stddev($\"cmp_sex\"))\n        .show()\n\nparsed.createOrReplaceTempView(\"linkage\")\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-12-26T16:07:18+0000",
+   "config": {
+    "results": [
+     {}
+    ]
+   },
+   "settings": {
+    "params": {
+     "bdtMeta": {
+      "inlay": {
+       "state": {
+        "currentPage": "Table",
+        "chart": {
+         "series": [
+          {
+           "type": "Pie",
+           "values": {
+            "column": "count",
+            "index": 1.0
+           },
+           "labels": {
+            "column": "is_match",
+            "index": 0.0
+           },
+           "showPercents": true
+          }
+         ]
+        }
+       }
+      }
+     }
+    },
+    "forms": {}
+   },
+   "results": {
+    "code": "SUCCESS",
+    "msg": [
+     {
+      "type": "TEXT",
+      "data": "+--------+-------+\n|is_match|  count|\n+--------+-------+\n|   false|5728201|\n|    true|  20931|\n+--------+-------+\n\n+-----------------+--------------------+\n|     avg(cmp_sex)|stddev_samp(cmp_sex)|\n+-----------------+--------------------+\n|0.955001381078048| 0.20730111116897845|\n+-----------------+--------------------+\n\n"
+     }
+    ]
+   },
+   "apps": [],
+   "runtimeInfos": {
+    "jobUrl": {
+     "propertyName": "jobUrl",
+     "label": "SPARK JOB",
+     "tooltip": "View in Spark web UI",
+     "group": "spark",
+     "values": [
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=24"
+      },
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=25"
+      }
+     ],
+     "interpreterSettingId": "spark"
+    }
+   },
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1608998838617_563127979",
+   "id": "paragraph_1608998838617_563127979",
+   "dateCreated": "2020-12-26T16:07:18+0000",
+   "dateStarted": "2020-12-26T16:07:18+0000",
+   "dateFinished": "2020-12-26T16:07:33+0000",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\n// Another way of querying the dataset using HiveQL or SQL\nspark.sql(\"\"\"SELECT is_match, count(*) as cnt FROM linkage GROUP BY is_match ORDER BY cnt DESC\"\"\")\n        .show()\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-12-26T16:07:45+0000",
+   "config": {},
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "results": {
+    "code": "SUCCESS",
+    "msg": [
+     {
+      "type": "TEXT",
+      "data": "+--------+-------+\n|is_match|    cnt|\n+--------+-------+\n|   false|5728201|\n|    true|  20931|\n+--------+-------+\n\n"
+     }
+    ]
+   },
+   "apps": [],
+   "runtimeInfos": {
+    "jobUrl": {
+     "propertyName": "jobUrl",
+     "label": "SPARK JOB",
+     "tooltip": "View in Spark web UI",
+     "group": "spark",
+     "values": [
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=26"
+      }
+     ],
+     "interpreterSettingId": "spark"
+    }
+   },
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1608998865281_1153151578",
+   "id": "paragraph_1608998865281_1153151578",
+   "dateCreated": "2020-12-26T16:07:45+0000",
+   "dateStarted": "2020-12-26T16:07:45+0000",
+   "dateFinished": "2020-12-26T16:07:50+0000",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\n// Show count, mean, stddev, min and max for all columns or some columns in the dataframe\nval summary = parsed.describe()\n\nsummary.select(\"summary\", \"cmp_fname_c1\", \"cmp_fname_c2\").show()",
+   "user": "anonymous",
+   "dateUpdated": "2020-12-26T16:07:54+0000",
+   "config": {},
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "results": {
+    "code": "SUCCESS",
+    "msg": [
+     {
+      "type": "TEXT",
+      "data": "+-------+-------------------+------------------+\n|summary|       cmp_fname_c1|      cmp_fname_c2|\n+-------+-------------------+------------------+\n|  count|            5748125|            103698|\n|   mean| 0.7129024704430164|0.9000176718903216|\n| stddev|0.38875835961627897|0.2713176105782335|\n|    min|                0.0|               0.0|\n|    max|                1.0|               1.0|\n+-------+-------------------+------------------+\n\n\u001b[1m\u001b[34msummary\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [summary: string, id_1: string ... 10 more fields]\n"
+     }
+    ]
+   },
+   "apps": [],
+   "runtimeInfos": {
+    "jobUrl": {
+     "propertyName": "jobUrl",
+     "label": "SPARK JOB",
+     "tooltip": "View in Spark web UI",
+     "group": "spark",
+     "values": [
+      {
+       "jobUrl": "http://0ae20bde7bf3:4040/jobs/job?id=27"
+      }
+     ],
+     "interpreterSettingId": "spark"
+    }
+   },
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1608998874615_493095534",
+   "id": "paragraph_1608998874615_493095534",
+   "dateCreated": "2020-12-26T16:07:54+0000",
+   "dateStarted": "2020-12-26T16:07:54+0000",
+   "dateFinished": "2020-12-26T16:08:14+0000",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\nval matches = parsed.where(\"is_match == true\")\nval matchSummary = matches.describe()\n\nval misses = parsed.filter($\"is_match\" === false)\nval missSummary = misses.describe()\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-10-01T23:56:08-0500",
+   "config": {},
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "runtimeInfos": {
+    "jobUrl": {
+     "propertyName": "jobUrl",
+     "label": "SPARK JOB",
+     "tooltip": "View in Spark web UI",
+     "group": "spark",
+     "values": [
+      {
+       "jobUrl": "http://192.168.0.155:4040/jobs/job?id=161"
+      },
+      {
+       "jobUrl": "http://192.168.0.155:4040/jobs/job?id=162"
+      }
+     ],
+     "interpreterSettingId": "spark"
+    }
+   },
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1601614568461_1580911931",
+   "id": "paragraph_1601614568461_1580911931",
+   "dateCreated": "2020-10-01T23:56:08-0500",
+   "dateStarted": "2020-10-01T23:56:08-0500",
+   "dateFinished": "2020-10-01T23:56:12-0500",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\nimport org.apache.spark.sql.DataFrame\n\n/**\n * Traduces the summary statistics in row format to column format\n *\n * @param df : Current DataFrame\n * @return DataFrame row format describe statistics\n */\ndef transformSummary(df: DataFrame): DataFrame = {\n    val schema = df.schema\n    val longForm = summary.flatMap(row => {\n        val metric = row.getString(0)\n        (1 until row.size).map(i => (metric, schema(i).name, row.getString(i)))\n    })\n\n    longForm.toDF(\"metric\", \"field\", \"value\")\n}\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-10-01T23:56:12-0500",
+   "config": {},
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "runtimeInfos": {},
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1601614572708_2104626388",
+   "id": "paragraph_1601614572708_2104626388",
+   "dateCreated": "2020-10-01T23:56:12-0500",
+   "dateStarted": "2020-10-01T23:56:12-0500",
+   "dateFinished": "2020-10-01T23:56:12-0500",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\nval longFormMatchSummary = transformSummary(matchSummary)\nval longFormMissSummary = transformSummary(missSummary)\n\nlongFormMatchSummary.show(100)\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-10-01T23:56:12-0500",
+   "config": {},
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "runtimeInfos": {
+    "jobUrl": {
+     "propertyName": "jobUrl",
+     "label": "SPARK JOB",
+     "tooltip": "View in Spark web UI",
+     "group": "spark",
+     "values": [
+      {
+       "jobUrl": "http://192.168.0.155:4040/jobs/job?id=163"
+      },
+      {
+       "jobUrl": "http://192.168.0.155:4040/jobs/job?id=164"
+      }
+     ],
+     "interpreterSettingId": "spark"
+    }
+   },
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1601614572935_1846908529",
+   "id": "paragraph_1601614572935_1846908529",
+   "dateCreated": "2020-10-01T23:56:12-0500",
+   "dateStarted": "2020-10-01T23:56:12-0500",
+   "dateFinished": "2020-10-01T23:56:13-0500",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\n// Turns columns into rows by doing some sort of transpose operation in the dataset\nval wideForm = longFormMatchSummary.groupBy($\"field\")\n        .pivot($\"metric\", Seq(\"count\", \"mean\", \"stddev\", \"min\", \"max\"))\n        .agg(first($\"value\"))\n\nwideForm.select($\"field\", $\"count\", $\"mean\", $\"min\", $\"max\").show()\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-10-01T23:56:13-0500",
+   "config": {},
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "runtimeInfos": {
+    "jobUrl": {
+     "propertyName": "jobUrl",
+     "label": "SPARK JOB",
+     "tooltip": "View in Spark web UI",
+     "group": "spark",
+     "values": [
+      {
+       "jobUrl": "http://192.168.0.155:4040/jobs/job?id=165"
+      },
+      {
+       "jobUrl": "http://192.168.0.155:4040/jobs/job?id=166"
+      },
+      {
+       "jobUrl": "http://192.168.0.155:4040/jobs/job?id=167"
+      },
+      {
+       "jobUrl": "http://192.168.0.155:4040/jobs/job?id=168"
+      },
+      {
+       "jobUrl": "http://192.168.0.155:4040/jobs/job?id=169"
+      }
+     ],
+     "interpreterSettingId": "spark"
+    }
+   },
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1601614573365_1764709330",
+   "id": "paragraph_1601614573365_1764709330",
+   "dateCreated": "2020-10-01T23:56:13-0500",
+   "dateStarted": "2020-10-01T23:56:13-0500",
+   "dateFinished": "2020-10-01T23:56:13-0500",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%md\n## Function for transposing a basic statistics dataframe\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-10-01T23:56:13-0500",
+   "config": {},
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "runtimeInfos": {},
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1601614573861_1375878837",
+   "id": "paragraph_1601614573861_1375878837",
+   "dateCreated": "2020-10-01T23:56:13-0500",
+   "dateStarted": "2020-10-01T23:56:13-0500",
+   "dateFinished": "2020-10-01T23:56:13-0500",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\ndef pivotSummary(desc: DataFrame): DataFrame = {\n    val schema = desc.schema\n    import desc.sparkSession.implicits._\n\n    val lf = desc.flatMap(row => {\n        val metric = row.getString(0);\n        (1 until row.size).map(i => (metric, schema(i).name, row.getString(i)))\n    }).toDF(\"metric\", \"field\", \"value\")\n\n    lf.groupBy(\"field\")\n            .pivot(\"metric\", Seq(\"count\", \"mean\", \"stddev\", \"min\", \"max\"))\n            .agg(first(\"value\"))\n}\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-10-01T23:56:14-0500",
+   "config": {},
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "runtimeInfos": {},
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1601614574082_1039523991",
+   "id": "paragraph_1601614574082_1039523991",
+   "dateCreated": "2020-10-01T23:56:14-0500",
+   "dateStarted": "2020-10-01T23:56:14-0500",
+   "dateFinished": "2020-10-01T23:56:14-0500",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%md\n## Features\nA good feature has two properties: It tends to have significantly different values for matches and non-matches so de diference of the between the means will be large.\nAnd it occurs often enough in the data that we can rely on it to be regularly available for any pair of records.\n\nTake an eye on cmp_fname_c2, isn't very useful because it's missing a lot of the times, and the difference in the delta is relatively small (0.09) for a score that ranges\nfrom 0 to 1",
+   "user": "anonymous",
+   "dateUpdated": "2020-10-01T23:56:14-0500",
+   "config": {},
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "runtimeInfos": {},
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1601614574349_446325295",
+   "id": "paragraph_1601614574349_446325295",
+   "dateCreated": "2020-10-01T23:56:14-0500",
+   "dateStarted": "2020-10-01T23:56:14-0500",
+   "dateFinished": "2020-10-01T23:56:14-0500",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\nval matchSummaryT = pivotSummary(matchSummary)\nval missSummaryT = pivotSummary(missSummary)\n\nmatchSummaryT.createOrReplaceTempView(\"match_desc\")\nmissSummaryT.createOrReplaceTempView(\"miss_desc\")\n\nspark.sql(\"SELECT a.field, a.count + b.count AS TOTAL, a.mean - b.mean AS delta FROM match_desc a INNER JOIN miss_desc b ON a.field = b.field WHERE a.field NOT IN ('id_1', 'id_2')\").show()\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-10-01T23:56:14-0500",
+   "config": {},
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "runtimeInfos": {
+    "jobUrl": {
+     "propertyName": "jobUrl",
+     "label": "SPARK JOB",
+     "tooltip": "View in Spark web UI",
+     "group": "spark",
+     "values": [
+      {
+       "jobUrl": "http://192.168.0.155:4040/jobs/job?id=171"
+      },
+      {
+       "jobUrl": "http://192.168.0.155:4040/jobs/job?id=172"
+      },
+      {
+       "jobUrl": "http://192.168.0.155:4040/jobs/job?id=173"
+      },
+      {
+       "jobUrl": "http://192.168.0.155:4040/jobs/job?id=174"
+      },
+      {
+       "jobUrl": "http://192.168.0.155:4040/jobs/job?id=175"
+      }
+     ],
+     "interpreterSettingId": "spark"
+    }
+   },
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1601614574492_908111990",
+   "id": "paragraph_1601614574492_908111990",
+   "dateCreated": "2020-10-01T23:56:14-0500",
+   "dateStarted": "2020-10-01T23:56:14-0500",
+   "dateFinished": "2020-10-01T23:56:15-0500",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\n// Usage of case classes\n// You mustn't use all the fields as String types\ncase class MatchData(\n                            id_1: Int,\n                            id_2: Int,\n                            cmp_fname_c1: Option[Double],\n                            cmp_fname_c2: Option[Double],\n                            cmp_lname_c1: Option[Double],\n                            cmp_lname_c2: Option[Double],\n                            cmp_sex: Option[Int],\n                            cmp_bd: Option[Int],\n                            cmp_bm: Option[Int],\n                            cmp_by: Option[Int],\n                            cmp_plz: Option[Int],\n                            is_match: Boolean\n                    )\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-10-01T23:56:15-0500",
+   "config": {},
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "runtimeInfos": {},
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1601614575312_1580973836",
+   "id": "paragraph_1601614575312_1580973836",
+   "dateCreated": "2020-10-01T23:56:15-0500",
+   "dateStarted": "2020-10-01T23:56:15-0500",
+   "dateFinished": "2020-10-01T23:56:15-0500",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\n\nval matchData = parsed.as[MatchData]\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-10-01T23:56:15-0500",
+   "config": {},
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "runtimeInfos": {},
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1601614575577_434593792",
+   "id": "paragraph_1601614575577_434593792",
+   "dateCreated": "2020-10-01T23:56:15-0500",
+   "dateStarted": "2020-10-01T23:56:15-0500",
+   "dateFinished": "2020-10-01T23:56:15-0500",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\ncase class Score(value: Double) {\n    def +(oi: Option[Int]) = Score(value + oi.getOrElse(0))\n}\n\ndef scoreMatchData(md: MatchData): Double =\n    (Score(md.cmp_lname_c1.getOrElse(0.0)) + md.cmp_plz +\n            md.cmp_by + md.cmp_bd + md.cmp_bm).value",
+   "user": "anonymous",
+   "dateUpdated": "2020-10-01T23:56:16-0500",
+   "config": {},
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "runtimeInfos": {},
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1601614576079_985439059",
+   "id": "paragraph_1601614576079_985439059",
+   "dateCreated": "2020-10-01T23:56:16-0500",
+   "dateStarted": "2020-10-01T23:56:16-0500",
+   "dateFinished": "2020-10-01T23:56:16-0500",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\n\nval scored = matchData.map { md =>\n    (scoreMatchData(md), md.is_match)\n}.toDF(\"score\", \"is_match\")\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-10-01T23:56:16-0500",
+   "config": {},
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "runtimeInfos": {},
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1601614576324_460396820",
+   "id": "paragraph_1601614576324_460396820",
+   "dateCreated": "2020-10-01T23:56:16-0500",
+   "dateStarted": "2020-10-01T23:56:16-0500",
+   "dateFinished": "2020-10-01T23:56:16-0500",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\ndef crossTab(scored: DataFrame, myScore: Double): DataFrame =\n    scored.selectExpr(s\"score >= ${myScore} as above\", \"is_match\")\n            .groupBy(\"above\")\n            .pivot(\"is_match\", Seq(\"true\", \"false\"))\n            .count()\n            .toDF(\"above\", \"count_true\", \"count_false\")\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-10-02T00:05:08-0500",
+   "config": {},
+   "settings": {
+    "params": {
+     "bdtMeta": {
+      "inlay": {
+       "state": {}
+      }
+     }
+    },
+    "forms": {}
+   },
+   "apps": [],
+   "runtimeInfos": {},
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1601615108523_1473742786",
+   "id": "paragraph_1601615108523_1473742786",
+   "dateCreated": "2020-10-02T00:05:08-0500",
+   "dateStarted": "2020-10-02T00:05:08-0500",
+   "dateFinished": "2020-10-02T00:05:08-0500",
+   "status": "FINISHED"
+  },
+  {
+   "text": "%spark\nval result = crossTab(scored, 4.0)\n\nsc.version\n\nresult.show()\n",
+   "user": "anonymous",
+   "dateUpdated": "2020-10-02T00:12:55-0500",
+   "config": {},
+   "settings": {
+    "params": {},
+    "forms": {}
+   },
+   "apps": [],
+   "runtimeInfos": {
+    "jobUrl": {
+     "propertyName": "jobUrl",
+     "label": "SPARK JOB",
+     "tooltip": "View in Spark web UI",
+     "group": "spark",
+     "values": [
+      {
+       "jobUrl": "http://192.168.0.155:4040/jobs/job?id=179"
+      }
+     ],
+     "interpreterSettingId": "spark"
+    }
+   },
+   "progressUpdateIntervalMs": 500.0,
+   "jobName": "paragraph_1601615575503_467654249",
+   "id": "paragraph_1601615575503_467654249",
+   "dateCreated": "2020-10-02T00:12:55-0500",
+   "dateStarted": "2020-10-02T00:12:55-0500",
+   "dateFinished": "2020-10-02T00:12:56-0500",
+   "status": "ERROR"
+  }
+ ],
+ "name": "Zeppelin Notebook",
+ "id": "",
+ "noteParams": {},
+ "noteForms": {},
+ "angularObjects": {},
+ "config": {
+  "isZeppelinNotebookCronEnable": false,
+  "looknfeel": "default",
+  "personalizedMode": "false"
+ },
+ "info": {}
+}

@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+  spark-master:
+    image: bde2020/spark-master:2.4.5-hadoop2.7
+    container_name: spark-master
+    ports:
+      - "10000:10000"
+      - "7077:7077"
+    environment:
+      - INIT_DAEMON_STEP=setup_spark
+      - "SPARK_MASTER_WEBUI_PORT=10000"
+      - "SPARK_PUBLIC_DNS=localhost"
+      - "SPARK_MASTER_HOST=0.0.0.0"
+  spark-worker-1:
+    image: bde2020/spark-worker:2.4.5-hadoop2.7
+    container_name: spark-worker-1
+    depends_on:
+      - spark-master
+    ports:
+      - "10001:10001"
+    environment:
+      - "SPARK_MASTER=spark://spark-master:7077"
+      - "SPARK_WORKER_CORES=4"
+      - "SPARK_WORKER_MEMORY=4G"
+      - "SPARK_WORKER_WEBUI_PORT=10001"
+      - "SPARK_PUBLIC_DNS=localhost"
+  spark-worker-2:
+    image: bde2020/spark-worker:2.4.5-hadoop2.7
+    container_name: spark-worker-2
+    depends_on:
+      - spark-master
+    ports:
+      - "10002:10002"
+    environment:
+      - "SPARK_MASTER=spark://spark-master:7077"
+      - "SPARK_WORKER_CORES=4"
+      - "SPARK_WORKER_MEMORY=4G"
+      - "SPARK_WORKER_WEBUI_PORT=10002"
+      - "SPARK_PUBLIC_DNS=localhost"
+
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    container_name: namenode
+    restart: always
+    ports:
+      - "9870:9870"
+      - "9000:9000"
+    volumes:
+      - "./name:/hadoop/dfs/name"
+    environment:
+      - "CLUSTER_NAME=test"
+    env_file:
+      - "./hadoop.env"
+
+  datanode1:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: datanode1
+    restart: always
+    ports:
+      - "9867:9867"
+      - "9866:9866"
+      - "9865:9865"
+      - "9864:9864"
+    volumes:
+      - "./data1:/hadoop/dfs/data"
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - "./hadoop-d1.env"
+
+  apache-zeppelin:
+    image: apache/zeppelin:0.9.0
+    container_name: apache-zeppelin
+    depends_on:
+      - spark-master
+      - spark-worker-1
+      - spark-worker-2
+    ports:
+      - "8080:8080"
+    environment:
+      - "SPARK_MASTER=spark://spark-master:7077"
+      - "DOCKER_TIME_ZONE=America/Mexico_City"
+      - "ZEPPELIN_ADDR=0.0.0.0"
+      - "ZEPPELIN_PORT=8080"
+      - "USE_HADOOP=false"
+    volumes:
+      - "/c/Users/Juan Manuel/Google Drive/Notebooks/Zeppelin Notebooks:/opt/zeppelin/notebook"
